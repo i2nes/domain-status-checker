@@ -1,4 +1,3 @@
-```markdown
 # Domain Availability and Expiration Checker
 
 This Python script checks if a given domain (or set of domains) is available and, if registered, retrieves its expiration date using the [`python-whois`](https://pypi.org/project/python-whois/) library.
@@ -95,5 +94,3 @@ For a domain like `example.com`, you might see:
 
 - If a domain query fails due to a WHOIS parsing error, the script will mark the domain as available.  
 - If any other exception occurs (e.g., network issue), the script will handle it gracefully and report the domain as registered without an expiration date.
-
-```
