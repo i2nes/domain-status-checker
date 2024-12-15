@@ -1,0 +1,39 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg
+*.egg-info
+*.eggs
+*.pyd
+*.so
+
+# Python virtual environments
+env/
+venv/
+ENV/
+.venv/
+venv.bak/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Cache files
+*.cache
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# MacOS files
+.DS_Store
+.Trashes
+Thumbs.db
+
+# Local Files
+domains.json
+extensions.json
