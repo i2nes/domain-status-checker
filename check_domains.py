@@ -1,6 +1,22 @@
 import json
 import whois
+import logging
 from datetime import datetime
+
+# ANSI color codes
+GREEN = "\033[92m"
+RESET = "\033[0m"
+
+def setup_logger():
+    """Set up a logger to log messages with a simple format."""
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
 
 def load_json_file(filename):
     """Load and return JSON data from a file."""
@@ -37,10 +53,11 @@ def check_domain(domain):
         return True, None
     except Exception:
         # Any other exceptions, assume domain is not available (or unknown)
-        # It's safer to mark as registered without expiration date, or you could handle differently.
         return False, None
 
 def main():
+    logger = setup_logger()
+
     # Load domains and extensions
     domains_data = load_json_file('domains.json')
     extensions_data = load_json_file('extensions.json')
@@ -55,14 +72,14 @@ def main():
     for d in full_domains:
         is_available, expiration_date = check_domain(d)
         if is_available:
-            print(f"{d}: AVAILABLE")
+            logger.info(f"{GREEN}{d}: AVAILABLE{RESET}")
         else:
             if expiration_date:
                 # Format expiration date nicely
                 formatted_date = expiration_date.strftime("%Y-%m-%d") if isinstance(expiration_date, datetime) else str(expiration_date)
-                print(f"{d}: REGISTERED (Expires on {formatted_date})")
+                logger.info(f"{d}: REGISTERED (Expires on {formatted_date})")
             else:
-                print(f"{d}: REGISTERED (Expiration date not found)")
+                logger.info(f"{d}: REGISTERED (Expiration date not found)")
 
 if __name__ == "__main__":
     main()
